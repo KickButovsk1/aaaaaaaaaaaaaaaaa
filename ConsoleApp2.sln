@@ -1,25 +1,286 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33213.308
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{3A6BA592-685E-4C4F-B175-74107E000809}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A6BA592-685E-4C4F-B175-74107E000809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A6BA592-685E-4C4F-B175-74107E000809}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A6BA592-685E-4C4F-B175-74107E000809}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A6BA592-685E-4C4F-B175-74107E000809}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4B5AF4CF-7881-47D6-9104-C01BB9DA6772}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //ex1();
+            //ex2();
+            //ex3();
+            //ex4();
+            //ex5();
+            //ex6();
+            //ex7();
+            //ex8();
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    table[0, 0] = table[3, 3];
+                    Console.Write(table[i, j] + "\t");
+
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static void ex8()
+        {
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    if (Convert.ToInt32(table[i, j]) < 0)
+                    {
+                        table[i, j] = "0";
+                    }
+                    else if (Convert.ToInt32(table[i, j]) == 0)
+                    {
+                        table[i, j] = "25";
+                    }
+                    Console.Write(table[i, j] + "\t");
+
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static void ex7()
+        {
+            float sum = 0;
+            int[] array = new int[10];
+            Console.WriteLine("Заполните массив");
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = Convert.ToInt32(Console.ReadLine());
+                sum += array[i];
+            }
+            Console.WriteLine("Среднее арифмитическое =");
+            Console.WriteLine(sum / 10);
+        }
+
+        private static void ex6()
+        {
+            int sumotr = 0;
+            int sumpol = 0;
+            int colvo = 0;
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    if (Convert.ToInt32(table[i,j])<1)
+                    {
+                        sumotr += Convert.ToInt32(table[i, j]);
+                    }
+                    if (Convert.ToInt32(table[i, j]) >= 1)
+                    {
+                        sumpol += Convert.ToInt32(table[i, j]);
+                    }
+                    if (Convert.ToInt32(table[i, j]) ==0)
+                    {
+                        colvo++;
+                    }
+
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Сумма положительных элементов: " + sumpol);
+            Console.WriteLine("Сумма отрицательных элементов: " + sumotr);
+            Console.WriteLine("Кол-во нулевых элементов: " + colvo);
+        }
+
+        private static void ex5()
+        {
+            Console.WriteLine("Введите размер массива");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+            Console.WriteLine("Введите числа в массиве");
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = Convert.ToInt32(Console.ReadLine());
+
+            }
+            Console.WriteLine("Массив до реверса");
+            for (int i = 0; i < array.Length; i++)
+            {
+
+                Console.WriteLine(array[i]);
+            }
+            Array.Reverse(array);
+            Console.WriteLine("Массив после реверса");
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.WriteLine(array[i]);
+            }
+        }
+
+        private static void ex4()
+        {
+            int sum = 0;
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    if (i == j)
+                    {
+                        sum += Convert.ToInt32(table[i, j]) * Convert.ToInt32(table[i, j]);
+                    }
+
+                }
+                
+
+            }
+            Console.WriteLine("--------------------------");
+            Console.WriteLine(sum);
+            Console.WriteLine();
+        }
+
+        private static void ex3()
+        {
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    Console.Write(table[j, i] + "\t");
+
+                }
+                Console.WriteLine();
+
+            }
+        }
+
+        private static void ex2()
+        {
+            int[] array = new int[41];
+            int number = 9;
+            int sum = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                number += 1;
+                array[i] = number;
+
+                if (array[i] % 2 == 0)
+                {
+                    sum += array[i];
+                }
+            }
+            Console.WriteLine(sum);
+        }
+
+        private static void ex1()
+        {
+            int index = 0;
+            int lengh = 0;
+            string[] lines = File.ReadAllLines("data.csv");
+            int row = lines.Length;
+            int col = lines[0].Split(';').Length;
+            string[,] table = new string[row, col];
+            for (int i = 0; i < row; i++)
+            {
+                string[] values = lines[i].Split(';');
+                for (int j = 0; j < col; j++)
+                {
+                    table[i, j] = values[j];
+                }
+            }
+            for (int i = 0; i < row; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < col; j++)
+                {
+                    Console.Write(table[i, j] + "\t");
+
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("--------------------------");
+            for (int j = 0; j < col; j++)
+            {
+                for (int i = 0; i < row; i++)
+                {
+
+                    index += Convert.ToInt32(table[i, j]);
+                    lengh = row;
+
+                }
+                Console.Write((index / lengh) + "\t");
+                index = 0;
+
+            }
+        }
+    }
+}
